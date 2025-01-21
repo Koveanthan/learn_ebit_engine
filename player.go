@@ -7,7 +7,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
-var playerSprite = mustLoadImage("./assets/png/playerShip1_red.png")
+var playerSprite = mustLoadImage("./assets/png/playerShip1_blue.png")
 
 func mustLoadImage(path string) image.Image {
 	f, err := assets.Open(path)
