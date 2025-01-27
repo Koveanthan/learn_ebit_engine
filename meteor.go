@@ -1,6 +1,7 @@
 package main
 
 import (
+	"math"
 	"math/rand"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -8,15 +9,26 @@ import (
 
 var meteors = mustLoadImages("assets/PNG/Meteors")
 
+var target = Vector{
+	x: ScreenWidth / 2,
+	y: ScreenHeight / 2,
+}
+
+var radius = ScreenWidth / 2.0
+
 type Meteor struct {
 	position Vector
 	sprite   *ebiten.Image
 }
 
-func NewMeteor(x, y float64) *Meteor {
+func NewMeteor() *Meteor {
+	randAngle := rand.Float64() * math.Pi * 2
 	return &Meteor{
-		position: Vector{x: x, y: y},
-		sprite:   meteors[rand.Intn(len(meteors))],
+		position: Vector{
+			x: target.x + math.Cos(randAngle)*radius,
+			y: target.y + math.Sin(randAngle)*radius,
+		},
+		sprite: meteors[rand.Intn(len(meteors))],
 	}
 }
 

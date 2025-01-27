@@ -6,6 +6,8 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
+var playerSprite = mustLoadImage("assets/PNG/playerShip1_blue.png")
+
 type Vector struct {
 	x float64
 	y float64
@@ -17,10 +19,10 @@ type Player struct {
 	sprite   *ebiten.Image
 }
 
-func NewPlayer(x, y float64, imagePath string) *Player {
+func NewPlayer() *Player {
 	p := Player{
-		position: Vector{x: x, y: y},
-		sprite:   mustLoadImage(imagePath),
+		position: Vector{x: ScreenWidth / 2, y: ScreenHeight / 2},
+		sprite:   playerSprite,
 	}
 
 	bounds := p.sprite.Bounds()
