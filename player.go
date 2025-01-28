@@ -13,6 +13,11 @@ type Vector struct {
 	y float64
 }
 
+func (v Vector) Normalize() Vector {
+	magnitude := math.Sqrt(v.x*v.x + v.y*v.y)
+	return Vector{v.x / magnitude, v.y / magnitude}
+}
+
 type Player struct {
 	position Vector
 	rotation float64

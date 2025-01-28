@@ -13,9 +13,9 @@ const (
 
 func main() {
 	g := &Game{
-		player:  *NewPlayer(),
-		timer:   *NewTimer(5 * time.Second),
-		meteors: []Meteor{},
+		player:  NewPlayer(),
+		timer:   NewTimer(5 * time.Second),
+		meteors: []*Meteor{},
 	}
 	if err := ebiten.RunGame(g); err != nil {
 		panic(err)
@@ -23,9 +23,9 @@ func main() {
 }
 
 type Game struct {
-	player  Player
-	timer   MeteorTimer
-	meteors []Meteor
+	player  *Player
+	timer   *MeteorTimer
+	meteors []*Meteor
 }
 
 func (g *Game) Update() error {
@@ -36,7 +36,7 @@ func (g *Game) Update() error {
 	if g.timer.isReady() {
 		g.timer.reset()
 
-		meteor := *NewMeteor()
+		meteor := NewMeteor()
 		g.meteors = append(g.meteors, meteor)
 	}
 
