@@ -21,12 +21,14 @@ func (v Vector) Normalize() Vector {
 type Player struct {
 	position Vector
 	rotation float64
+	bullets  []*Bullet
 	sprite   *ebiten.Image
 }
 
 func NewPlayer() *Player {
 	p := Player{
 		position: Vector{x: ScreenWidth / 2, y: ScreenHeight / 2},
+		bullets:  []*Bullet{},
 		sprite:   playerSprite,
 	}
 
@@ -50,6 +52,10 @@ func (p *Player) Draw(screen *ebiten.Image) {
 
 	op.GeoM.Translate(p.position.x, p.position.y)
 	screen.DrawImage(p.sprite, &op)
+
+	for _, bullet := range p.bullets {
+		bullet.Draw(screen)
+	}
 }
 
 func (p *Player) Update() {
@@ -61,5 +67,13 @@ func (p *Player) Update() {
 
 	if ebiten.IsKeyPressed(ebiten.KeyRight) {
 		p.rotation += speed
+	}
+
+	if ebiten.IsKeyPressed(ebiten.KeyS) {
+		p.bullets = append(p.bullets, NewBullet(p.position.x, p.position.y, p.rotation))
+	}
+
+	for _, bullet := range p.bullets {
+		bullet.Update()
 	}
 }
